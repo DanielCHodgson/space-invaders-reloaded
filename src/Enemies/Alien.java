@@ -25,9 +25,7 @@ public class Alien extends GameObject implements DrawableGameObject {
     private static final String SPRITE_PATH = "res\\sprite_sheet.png";
     private BufferedImage spriteSheet;
 
-
     private int speed;
-
 
     private Controller c;
 
@@ -37,18 +35,20 @@ public class Alien extends GameObject implements DrawableGameObject {
 
     private boolean collided = false;
 
-
     Animation animAlien;
     GameMenu menu;
 
     Sound explosion;
 
-
-    public Alien(int xPosition, int yPosition, int speed, GameLoop gameLoop, Textures tex, Controller c) {
-
+    public Alien(
+            int xPosition,
+            int yPosition,
+            int speed,
+            GameLoop gameLoop,
+            Textures tex,
+            Controller c) {
 
         super(xPosition, yPosition);
-
 
         this.spriteSheet = loadImage(SPRITE_PATH);
 
@@ -60,75 +60,64 @@ public class Alien extends GameObject implements DrawableGameObject {
 
         this.c = c;
 
-        animAlien = new Animation(10, tex.alien[0], tex.alien[1], tex.alien[2], tex.alien[3], tex.alien[4], tex.alien[5], tex.alien[6], tex.alien[7]);
-
-
+        animAlien =
+                new Animation(
+                        10,
+                        tex.alien[0],
+                        tex.alien[1],
+                        tex.alien[2],
+                        tex.alien[3],
+                        tex.alien[4],
+                        tex.alien[5],
+                        tex.alien[6],
+                        tex.alien[7]);
     }
-
 
     public void draw(Graphics g) {
 
-       animAlien.drawAnimation(g, xPosition, yPosition, 0);
+        animAlien.drawAnimation(g, xPosition, yPosition, 0);
 
         Font fnt0 = new Font("arial", Font.BOLD, 15);
         g.setFont(fnt0);
         g.setColor(Color.WHITE);
         g.drawString("Score: " + gameLoop.getEnemyKilled(), 25, 25);
-
-
-
-
     }
 
     public void tick(double delta) {
 
         animAlien.runAnimation();
 
-
         getBounds();
 
+        if (Physics.collision(this, gameLoop.w)) {
+            c.removeAlien(this);
+            c.removeAlienTwo(this);
+            c.removeAlienThree(this);
 
-            if (Physics.collision(this, gameLoop.w)) {
-                c.removeAlien(this);
-                c.removeAlienTwo(this);
-                c.removeAlienThree(this);
+            setxPosition(-100);
 
-
-                setxPosition(-100);
-
-                /*try {
-                    explosion = new Sound("src/Music/boom.au");
-                } catch (UnsupportedAudioFileException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (LineUnavailableException e) {
-                    e.printStackTrace();
-                }
-
-                explosion.play();*/
-
-
-                gameLoop.setEnemyKilled(gameLoop.getEnemyKilled() + 1);
-
+            /*try {
+                explosion = new Sound("src/Music/boom.au");
+            } catch (UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
             }
 
+            explosion.play();*/
+
+            gameLoop.setEnemyKilled(gameLoop.getEnemyKilled() + 1);
+        }
 
         if (yPosition >= 350) {
 
             gameLoop.State = GameLoop.STATE.LOSE;
-
         }
-
-
-
     }
 
-
-
-
     private BufferedImage loadImage(String path) {
-
 
         try {
             return ImageIO.read(new File(path));
@@ -136,18 +125,13 @@ public class Alien extends GameObject implements DrawableGameObject {
             e.printStackTrace();
         }
         return null;
-
-
     }
-
-
 
     public Rectangle getBounds() {
         return new Rectangle(xPosition, yPosition, 32, 32);
     }
 
-
-    //Getters and Setters
+    // Getters and Setters
 
     public int getxPosition() {
         return xPosition;
@@ -172,6 +156,4 @@ public class Alien extends GameObject implements DrawableGameObject {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
-
 }

@@ -7,22 +7,17 @@ import java.util.List;
 
 public class GameRender {
 
-  private List<DrawableGameObject> components = new ArrayList<>();
+    private List<DrawableGameObject> components = new ArrayList<>();
 
-
-    public void addDrawableGameComponents (DrawableGameObject... dgc){
-      components.addAll(Arrays.asList(dgc));
-
+    public void addDrawableGameComponents(DrawableGameObject... dgc) {
+        components.addAll(Arrays.asList(dgc));
     }
 
-    public  <T extends DrawableGameObject> void  addAllDrawableGameComponents (List<T> list) {
-      components.addAll(list);
-
-
+    public <T extends DrawableGameObject> void addAllDrawableGameComponents(List<T> list) {
+        components.addAll(list);
     }
 
     public List<DrawableGameObject> getComponents() {
-      return components;
+        return components;
     }
-
 }

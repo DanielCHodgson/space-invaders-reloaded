@@ -20,20 +20,17 @@ public class Sound {
     String status;
 
     AudioInputStream audioInputStream;
-   // static String filePath = "src/Music/Menu_Music.au";
-   static String filePath;
+    // static String filePath = "src/Music/Menu_Music.au";
+    static String filePath;
 
     // constructor to initialize streams and clip
 
     public Sound(String filePath)
-            throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException {
-
+            throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
         this.filePath = filePath;
         // create AudioInputStream object
-        audioInputStream =
-                AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
 
         // create clip reference
         clip = AudioSystem.getClip();
@@ -41,31 +38,28 @@ public class Sound {
         // open audioInputStream to the clip
         clip.open(audioInputStream);
 
-       // clip.loop(Clip.LOOP_CONTINUOUSLY);
+        // clip.loop(Clip.LOOP_CONTINUOUSLY);
 
     }
+
     // Method to play the audio
 
-    public void play()
-    {
-        //start the clip
+    public void play() {
+        // start the clip
         clip.start();
 
         status = "play";
     }
+
     // Method to stop the audio
 
-    public void stop() throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException
-    {
+    public void stop() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         currentFrame = 0L;
         clip.stop();
         clip.close();
     }
 
-
     public static void setFilePath(String filePath) {
         Sound.filePath = filePath;
     }
-
 }

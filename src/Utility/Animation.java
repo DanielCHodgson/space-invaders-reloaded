@@ -14,7 +14,6 @@ public class Animation {
 
     private BufferedImage currentImg;
 
-
     public Animation(int speed, BufferedImage... bImages) {
 
         this.bImages = bImages;
@@ -24,31 +23,23 @@ public class Animation {
         frames = 7;
     }
 
-
     public void runAnimation() {
         index++;
         if (index > speed) {
             index = 0;
             nextFrame();
         }
-
     }
 
     public void nextFrame() {
 
-
         count++;
 
-        if (count > frames)
-            count = 0;
-
+        if (count > frames) count = 0;
     }
-
 
     public void drawAnimation(Graphics g, double x, double y, int offset) {
         g.drawImage(bImages[count], (int) x - offset, (int) y, null);
-
-
     }
 
     public void setCount(int count) {
@@ -65,8 +56,5 @@ public class Animation {
 
     public void setSpeed(int speed) {
         this.speed = speed;
-
-
     }
-
 }

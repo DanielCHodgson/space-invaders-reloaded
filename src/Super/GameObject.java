@@ -13,8 +13,7 @@ public class GameObject {
         this.yPosition = yPosition;
     }
 
-    public Rectangle getBounds(int width, int height){
+    public Rectangle getBounds(int width, int height) {
         return new Rectangle(xPosition, yPosition, width, height);
     }
-
 }

@@ -3,16 +3,13 @@ package Utility;
 import Display.GameWindow;
 import Loop.GameLoop;
 
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Color;
 import java.awt.Font;
 
-
 public class GameMenu {
-
 
     public Rectangle playButton;
     public Rectangle helpButton;
@@ -20,10 +17,9 @@ public class GameMenu {
 
     public void render(Graphics g, GameWindow gameWindow) {
 
-
-      Rectangle playButton = new Rectangle(225,  150, 150, 50);
-      Rectangle helpButton = new Rectangle(225,  225, 150, 50);
-      Rectangle quitButton = new Rectangle(225,  300, 150, 50);
+        Rectangle playButton = new Rectangle(225, 150, 150, 50);
+        Rectangle helpButton = new Rectangle(225, 225, 150, 50);
+        Rectangle quitButton = new Rectangle(225, 300, 150, 50);
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -42,12 +38,11 @@ public class GameMenu {
         g2d.draw(quitButton);
     }
 
-
     public void renderLoseScreen(Graphics g, GameWindow gameWindow) {
 
-        Rectangle playButton = new Rectangle(225,  150, 150, 50);
-        Rectangle helpButton = new Rectangle(225,  225, 150, 50);
-        Rectangle quitButton = new Rectangle(225,  300, 150, 50);
+        Rectangle playButton = new Rectangle(225, 150, 150, 50);
+        Rectangle helpButton = new Rectangle(225, 225, 150, 50);
+        Rectangle quitButton = new Rectangle(225, 300, 150, 50);
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -64,6 +59,5 @@ public class GameMenu {
         g2d.draw(helpButton);
         g.drawString("Rage Quit", quitButton.x + 5, quitButton.y + 35);
         g2d.draw(quitButton);
-
     }
 }

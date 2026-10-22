@@ -22,9 +22,7 @@ public class Mothership extends GameObject implements DrawableGameObject {
     private static final String SPRITE_PATH = "res\\sprite_sheet.png";
     private BufferedImage spriteSheet;
 
-
     private int speed;
-
 
     private Controller c;
 
@@ -35,16 +33,18 @@ public class Mothership extends GameObject implements DrawableGameObject {
     private int health = 3;
     private int hit;
 
-
     Animation animAlienBoss;
     GameMenu menu;
 
-
-    public Mothership(int xPosition, int yPosition, int speed, GameLoop gameLoop, Textures tex, Controller c) {
-
+    public Mothership(
+            int xPosition,
+            int yPosition,
+            int speed,
+            GameLoop gameLoop,
+            Textures tex,
+            Controller c) {
 
         super(xPosition, yPosition);
-
 
         this.spriteSheet = loadImage(SPRITE_PATH);
 
@@ -56,19 +56,23 @@ public class Mothership extends GameObject implements DrawableGameObject {
 
         this.c = c;
 
-        animAlienBoss = new Animation(10, tex.bossShip[0], tex.bossShip[1], tex.bossShip[2], tex.bossShip[3], tex.bossShip[4], tex.bossShip[5], tex.bossShip[6], tex.bossShip[7]);
-
-
+        animAlienBoss =
+                new Animation(
+                        10,
+                        tex.bossShip[0],
+                        tex.bossShip[1],
+                        tex.bossShip[2],
+                        tex.bossShip[3],
+                        tex.bossShip[4],
+                        tex.bossShip[5],
+                        tex.bossShip[6],
+                        tex.bossShip[7]);
     }
-
 
     public void draw(Graphics g) {
 
         animAlienBoss.drawAnimation(g, xPosition, yPosition, 0);
-        //g.drawImage(extractImage(spriteSheet, 0, 3), xPosition, yPosition, null);
-
-
-
+        // g.drawImage(extractImage(spriteSheet, 0, 3), xPosition, yPosition, null);
 
     }
 
@@ -76,25 +80,18 @@ public class Mothership extends GameObject implements DrawableGameObject {
 
         animAlienBoss.runAnimation();
 
-
         getBounds();
-
 
         if (Physics.collision(this, gameLoop.w)) {
 
             health--;
             hit++;
-
-
         }
 
         if (health == 0) {
 
             setxPosition(-100);
             c.removeMotherShip(this);
-
-
-
         }
 
         if (hit == 3) {
@@ -102,29 +99,17 @@ public class Mothership extends GameObject implements DrawableGameObject {
             hit = 0;
         }
 
-
-
-
         if (yPosition >= 350) {
 
             gameLoop.State = GameLoop.STATE.LOSE;
-
         }
-
-
-
     }
-
 
     public BufferedImage extractImage(BufferedImage image, int row, int col) {
         return image.getSubimage(col * 32, row * 32, 64, 32);
-
     }
 
-
-
     private BufferedImage loadImage(String path) {
-
 
         try {
             return ImageIO.read(new File(path));
@@ -132,18 +117,13 @@ public class Mothership extends GameObject implements DrawableGameObject {
             e.printStackTrace();
         }
         return null;
-
-
     }
-
-
 
     public Rectangle getBounds() {
         return new Rectangle(xPosition, yPosition, 64, 32);
     }
 
-
-    //Getters and Setters
+    // Getters and Setters
 
     public int getxPosition() {
         return xPosition;
@@ -168,6 +148,4 @@ public class Mothership extends GameObject implements DrawableGameObject {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
-
 }

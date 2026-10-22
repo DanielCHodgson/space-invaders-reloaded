@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-
 public class Spaceship extends GameObject implements DrawableGameObject {
     private static final String SPRITE_PATH = "res\\sprite_sheet.png";
     private BufferedImage spriteSheet;
@@ -25,8 +24,14 @@ public class Spaceship extends GameObject implements DrawableGameObject {
 
     Animation animSpaceship;
 
-
-    public Spaceship(int xPosition, int yPosition, int speed, int scale, int width, int height, Textures tex) {
+    public Spaceship(
+            int xPosition,
+            int yPosition,
+            int speed,
+            int scale,
+            int width,
+            int height,
+            Textures tex) {
 
         super(xPosition, yPosition);
         this.speed = speed;
@@ -37,19 +42,13 @@ public class Spaceship extends GameObject implements DrawableGameObject {
 
         this.tex = tex;
 
-
         animSpaceship = new Animation(6, tex.spaceship);
-
-
     }
-
 
     public void draw(Graphics g) {
 
         animSpaceship.drawAnimation(g, xPosition, yPosition, 0);
-
     }
-
 
     public void tick(double delta) {
         xPosition += velX;
@@ -58,18 +57,13 @@ public class Spaceship extends GameObject implements DrawableGameObject {
         if (xPosition >= 550) xPosition = 550;
 
         animSpaceship.runAnimation();
-
-
     }
-
 
     public Rectangle getBounds() {
         return new Rectangle(xPosition, yPosition, 32, 32);
     }
 
-
     private BufferedImage loadImage(String path) {
-
 
         try {
             return ImageIO.read(new File(path));
@@ -77,14 +71,9 @@ public class Spaceship extends GameObject implements DrawableGameObject {
             e.printStackTrace();
         }
         return null;
-
-
     }
 
-
-
-
-    //Getters and Setters
+    // Getters and Setters
 
     public int getxPosition() {
         return xPosition;
@@ -141,5 +130,4 @@ public class Spaceship extends GameObject implements DrawableGameObject {
     public void setVelX(double velX) {
         this.velX = velX;
     }
-
 }

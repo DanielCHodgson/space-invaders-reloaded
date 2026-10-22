@@ -7,8 +7,6 @@ import java.io.IOException;
 
 public class Textures {
 
-
-
     public BufferedImage[] spaceship = new BufferedImage[8];
     public BufferedImage[] alien = new BufferedImage[8];
     public BufferedImage[] bossShip = new BufferedImage[8];
@@ -17,23 +15,16 @@ public class Textures {
     private static final String SPRITE_PATH = "res\\sprite_sheet.png";
     private BufferedImage spriteSheet;
 
-
-
-
-
-
     public Textures() {
         this.spriteSheet = loadImage(SPRITE_PATH);
 
         getTextures();
     }
 
-
     public void getTextures() {
 
-
         int row = 0;
-        for (int i=0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
 
             spaceship[i] = extractImage(spriteSheet, row, 0);
             alien[i] = extractImage(spriteSheet, row, 1);
@@ -41,14 +32,9 @@ public class Textures {
 
             row++;
         }
-
     }
 
-
-
-
     private BufferedImage loadImage(String path) {
-
 
         try {
             return ImageIO.read(new File(path));
@@ -56,19 +42,13 @@ public class Textures {
             e.printStackTrace();
         }
         return null;
-
-
     }
 
     public BufferedImage extractImage(BufferedImage image, int row, int col) {
         return image.getSubimage(col * 32, row * 32, 32, 32);
-
     }
 
     public BufferedImage extractBossImage(BufferedImage image, int row, int col) {
         return image.getSubimage(col * 32, row * 32, 64, 32);
     }
-
-
-
 }

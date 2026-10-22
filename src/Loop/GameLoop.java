@@ -40,25 +40,19 @@ public class GameLoop extends Canvas implements Runnable {
     private Controller c;
     private BufferedImage backgroundImage;
 
-
     private int alienOneCount = 0;
     private int alienTwoCount = 0;
     private int alienThreeCount = 0;
 
     private int enemyKilled = 0;
 
+    public Sound menuMusic;
+    public Sound blast;
 
-   public Sound menuMusic;
-   public  Sound blast;
-
-   long pressTime;
-   long Releasetime;
-
-
-
+    long pressTime;
+    long Releasetime;
 
     private GameMenu menu;
-
 
     public enum STATE {
         MENU,
@@ -69,11 +63,9 @@ public class GameLoop extends Canvas implements Runnable {
 
     public static STATE State = STATE.MENU;
 
-
     public GameLoop() {
         this.backgroundImage = loadImage(BACKGROUND_PATH);
     }
-
 
     Textures tex = new Textures();
 
@@ -83,13 +75,6 @@ public class GameLoop extends Canvas implements Runnable {
 
     GameWindow gameWindow = new GameWindow();
 
-
-
-
-
-
-
-
     public List<Lazer> w;
 
     public List<Alien> a;
@@ -97,22 +82,21 @@ public class GameLoop extends Canvas implements Runnable {
     public List<Alien> aThree;
     public List<Mothership> m;
 
-
-
     /*public synchronized void start() {
-        if (running)
-            return;
+      if (running)
+          return;
 
-        running = true;
-        run();
-      *//*  thread = new Thread(this);
-        thread.start();*//*
+      running = true;
+      run();
+    */
+    /*  thread = new Thread(this);
+    thread.start();*/
+    /*
 
     }*/
 
     public synchronized void stop() {
-        if (!running)
-            return;
+        if (!running) return;
         running = false;
         try {
             thread.join();
@@ -124,20 +108,17 @@ public class GameLoop extends Canvas implements Runnable {
 
     public void initialize() {
 
-
         System.out.println("hello");
 
         menu = new GameMenu();
 
         c = new Controller(this, tex);
 
-
         c.createAlienOne();
         c.createAlienTwo();
         c.createAlienThree();
 
         // c.createMotherShip();
-
 
         a = c.getAlien();
         w = c.getLazer();
@@ -146,27 +127,14 @@ public class GameLoop extends Canvas implements Runnable {
 
         m = c.getMothership();
 
-
-        draw.addAllDrawableGameComponents(a);
-        draw.addAllDrawableGameComponents(w);
-        draw.addAllDrawableGameComponents(aTwo);
-        draw.addAllDrawableGameComponents(aThree);
-
-        draw.addAllDrawableGameComponents(m);
-
         draw.addDrawableGameComponents(spaceship);
         draw.addDrawableGameComponents(c);
 
-
         addKeyListener(new KeyInput(this));
-
 
         this.addMouseListener(new MouseInput(this));
 
-
-
         try {
-
 
             menuMusic = new Sound("src/Music/Menu_Music.au");
 
@@ -179,20 +147,11 @@ public class GameLoop extends Canvas implements Runnable {
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
-
-
-
-
-
-
     }
-
 
     public void run() {
 
-
         initialize();
-
 
         long previous = System.nanoTime();
         final double AMOUNT_OF_TICKS = 60.0;
@@ -220,10 +179,8 @@ public class GameLoop extends Canvas implements Runnable {
                 frames = 0;
             }
 
-
             render();
         }
-
 
         State = STATE.MENU;
         // stop();
@@ -234,42 +191,35 @@ public class GameLoop extends Canvas implements Runnable {
         BufferStrategy buffer = this.getBufferStrategy();
         Graphics g = buffer.getDrawGraphics();
 
-
         if (State == STATE.GAME) {
             draw.getComponents().forEach(c -> c.draw(g));
 
         } else if (State == STATE.MENU) {
 
-
             menu.render(g, gameWindow);
 
         } else if (State == STATE.LOSE) {
             menu.renderLoseScreen(g, gameWindow);
-
         }
 
         buffer.show();
-        g.drawImage(backgroundImage, 0, 0, backgroundImage.getWidth(), backgroundImage.getHeight(), null);
-
-
+        g.drawImage(
+                backgroundImage,
+                0,
+                0,
+                backgroundImage.getWidth(),
+                backgroundImage.getHeight(),
+                null);
     }
-
 
     public void tick(double delta) {
 
         if (State == STATE.GAME) {
             draw.getComponents().forEach(c -> c.tick(delta));
-
-
-
         }
 
-
         scoreConditions();
-
-
     }
-
 
     public void scoreConditions() {
 
@@ -291,93 +241,59 @@ public class GameLoop extends Canvas implements Runnable {
             c.createAlienTwo();
             c.createAlienThree();
 
-            draw.addAllDrawableGameComponents(a);
-            draw.addAllDrawableGameComponents(aTwo);
-            draw.addAllDrawableGameComponents(aThree);
-
-
         } else if (alienOneCount <= 0) {
 
-
-            if ((c.getTempAlienTwo().getyPosition() >= 55) && (c.getTempAlienThree().getyPosition() >= 55)) {
+            if ((c.getTempAlienTwo().getyPosition() >= 55)
+                    && (c.getTempAlienThree().getyPosition() >= 55)) {
 
                 a = c.getAlien();
 
                 c.createAlienOne();
-
-
-                draw.addAllDrawableGameComponents(a);
-
             }
-
 
         } else if (alienTwoCount <= 0) {
 
-
-            if ((c.getTempAlienOne().getyPosition() <= 20 || c.getTempAlienOne().getyPosition() >= 100) && (c.getTempAlienThree().getyPosition() <= 20 || c.getTempAlienThree().getyPosition() >= 100)) {
+            if ((c.getTempAlienOne().getyPosition() <= 20
+                            || c.getTempAlienOne().getyPosition() >= 100)
+                    && (c.getTempAlienThree().getyPosition() <= 20
+                            || c.getTempAlienThree().getyPosition() >= 100)) {
 
                 c.createAlienTwo();
 
                 aTwo = c.getAlienTwo();
-
-
-                draw.addAllDrawableGameComponents(aTwo);
             }
 
         } else if (alienThreeCount <= 0) {
 
-            if ((c.getTempAlienTwo().getyPosition() <= 65 || c.getTempAlienTwo().getyPosition() >= 135) && (c.getTempAlienOne().getyPosition() <= 65 || c.getTempAlienOne().getyPosition() >= 135)) {
+            if ((c.getTempAlienTwo().getyPosition() <= 65
+                            || c.getTempAlienTwo().getyPosition() >= 135)
+                    && (c.getTempAlienOne().getyPosition() <= 65
+                            || c.getTempAlienOne().getyPosition() >= 135)) {
 
                 c.createAlienThree();
 
-
                 aThree = c.getAlienThree();
-
-
-                draw.addAllDrawableGameComponents(aThree);
             }
-
         }
 
         if ((getEnemyKilled() % 50 == 0 && getEnemyKilled() != 0) && m.size() == 0) {
 
+            if (c.getTempAlienTwo().getyPosition() >= 55
+                    && c.getTempAlienThree().getyPosition() >= 55
+                    && c.getTempAlienOne().getyPosition() >= 55) {
 
+                m = c.getMothership();
 
-            if (c.getTempAlienTwo().getyPosition() >= 55 && c.getTempAlienThree().getyPosition() >= 55 && c.getTempAlienOne().getyPosition() >= 55) {
-
-
-                         m = c.getMothership();
-
-
-                        c.createMotherShip();
-
-
-                        draw.addAllDrawableGameComponents(m);
-
-
-
-
-
+                c.createMotherShip();
             }
-
-
         }
-
-
-
-
     }
-
-
-
-
 
     public void keyPressed(KeyEvent e) {
 
         if (State == STATE.GAME) {
 
             int keyCode = e.getKeyCode();
-
 
             if ((keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) && running) {
                 spaceship.setVelX(-7);
@@ -397,28 +313,19 @@ public class GameLoop extends Canvas implements Runnable {
                     b.printStackTrace();
                 }
 
-
                 blast.play();
-
-
-
-
 
                 isShooting = true;
 
-
-
-                c.addWeapon(new Lazer((spaceship.getxPosition() + 12), spaceship.getyPosition(), this, c));
-
-
-
-
+                c.addWeapon(
+                        new Lazer(
+                                (spaceship.getxPosition() + 12),
+                                spaceship.getyPosition(),
+                                this,
+                                c));
             }
-
         }
-
     }
-
 
     public void keyReleased(KeyEvent e) {
 
@@ -431,11 +338,8 @@ public class GameLoop extends Canvas implements Runnable {
             spaceship.setVelX(0);
         } else if (keyCode == KeyEvent.VK_SPACE) {
             isShooting = false;
-
-
         }
     }
-
 
     private BufferedImage loadImage(String path) {
 
@@ -445,11 +349,9 @@ public class GameLoop extends Canvas implements Runnable {
             e.printStackTrace();
         }
         return null;
-
     }
 
-
-    //GETTERS AND SETTERS
+    // GETTERS AND SETTERS
 
     public int getAlienOneCount() {
         return alienOneCount;
@@ -482,7 +384,4 @@ public class GameLoop extends Canvas implements Runnable {
     public void setEnemyKilled(int enemyKilled) {
         this.enemyKilled = enemyKilled;
     }
-
-
 }
-

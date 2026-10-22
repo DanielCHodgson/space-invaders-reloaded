@@ -13,7 +13,6 @@ import java.sql.SQLOutput;
 
 public class MouseInput implements MouseListener {
 
-
     GameLoop gameLoop;
     Sound gameMusic;
 
@@ -21,25 +20,24 @@ public class MouseInput implements MouseListener {
         this.gameLoop = gameLoop;
     }
 
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
+    public void mouseClicked(MouseEvent e) {}
 
     public void mousePressed(MouseEvent e) {
 
-        int mX= e.getX();
-        int mY= e.getY();
+        int mX = e.getX();
+        int mY = e.getY();
 
-      /*  public Rectangle playButton = new Rectangle(225,  150, 150, 50);
+        /*  public Rectangle playButton = new Rectangle(225,  150, 150, 50);
         public Rectangle helpButton = new Rectangle(225,  225, 150, 50);
         public Rectangle quitButton = new Rectangle(225,  300, 150, 50);
         */
 
-      //Play Button
-        if(((mX >= 225 && mX <= 375) &&(mY >= 150 && mY <= 200) && GameLoop.State == GameLoop.STATE.MENU)) {
+        // Play Button
+        if (((mX >= 225 && mX <= 375)
+                && (mY >= 150 && mY <= 200)
+                && GameLoop.State == GameLoop.STATE.MENU)) {
 
-            //Pressed Play Button
+            // Pressed Play Button
             GameLoop.State = GameLoop.STATE.GAME;
 
             try {
@@ -52,7 +50,6 @@ public class MouseInput implements MouseListener {
                 g.printStackTrace();
             }
 
-
             try {
                 gameMusic = new Sound("src/Music/Game_Music.au");
             } catch (UnsupportedAudioFileException g) {
@@ -64,13 +61,13 @@ public class MouseInput implements MouseListener {
             }
 
             gameMusic.play();
-
-
         }
 
-        if(((mX >= 225 && mX <= 375) &&(mY >= 150 && mY <= 200) && GameLoop.State == GameLoop.STATE.LOSE)) {
+        if (((mX >= 225 && mX <= 375)
+                && (mY >= 150 && mY <= 200)
+                && GameLoop.State == GameLoop.STATE.LOSE)) {
 
-            //Pressed Retry Button
+            // Pressed Retry Button
             try {
                 gameMusic.stop();
             } catch (UnsupportedAudioFileException e1) {
@@ -81,39 +78,25 @@ public class MouseInput implements MouseListener {
                 e1.printStackTrace();
             }
 
-
             gameLoop.running = false;
             gameLoop.run();
-
-
         }
 
-        //Quit Button
-        if(((mX >= 225 && mX <= 375) &&(mY >= 300 && mY <= 350)&& (GameLoop.State == GameLoop.STATE.MENU || GameLoop.State == GameLoop.STATE.LOSE))) {
+        // Quit Button
+        if (((mX >= 225 && mX <= 375)
+                && (mY >= 300 && mY <= 350)
+                && (GameLoop.State == GameLoop.STATE.MENU
+                        || GameLoop.State == GameLoop.STATE.LOSE))) {
 
-            //Pressed Quit Button
+            // Pressed Quit Button
 
             System.exit(1);
-
-
         }
-
-
-
     }
 
+    public void mouseReleased(MouseEvent e) {}
 
-    public void mouseReleased(MouseEvent e) {
+    public void mouseEntered(MouseEvent e) {}
 
-    }
-
-
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-
-    public void mouseExited(MouseEvent e) {
-
-    }
+    public void mouseExited(MouseEvent e) {}
 }

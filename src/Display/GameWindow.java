@@ -24,37 +24,34 @@ public class GameWindow {
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setIgnoreRepaint(true);
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                System.exit(0);
-            }
-        });
+        frame.addWindowListener(
+                new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        super.windowClosing(e);
+                        System.exit(0);
+                    }
+                });
 
         frame.pack();
         this.frame = frame;
         canvas.createBufferStrategy(2);
         canvas.requestFocusInWindow();
         return frame;
-
     }
 
     public Rectangle getBounds() {
         return frame.getBounds();
-
     }
 
     public void setBounds(Rectangle r) {
-        if(r != null)
-        frame.setBounds(r);
-
+        if (r != null) frame.setBounds(r);
     }
-
 
     public void close() {
         frame.dispose();
     }
+
     public int getWIDTH() {
         return WIDTH;
     }
@@ -70,6 +67,4 @@ public class GameWindow {
     public String getTITLE() {
         return TITLE;
     }
-
-
 }

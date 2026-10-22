@@ -13,34 +13,27 @@ public class BaseLauncher {
         }
     }
 
-
     public static Rectangle restartMain(Rectangle r) {
-
 
         GameLoop gameLoop = new GameLoop();
         GameWindow window = new GameWindow();
         window.openGame(gameLoop);
         window.setBounds(r);
-        //gameLoop.start();
+        // gameLoop.start();
         Thread t = new Thread(gameLoop);
         t.start();
-
 
         while (true) {
             try {
                 t.join();
-               break;
+                break;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         Rectangle rectangle = window.getBounds();
         window.close();
-        return  rectangle;
+        return rectangle;
     }
-//        gameLoop.start();
+    //        gameLoop.start();
 }
-
-
-
-
