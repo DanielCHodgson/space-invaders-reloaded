@@ -1,3 +1,39 @@
+# Space Invaders: Reloaded
+
+A bug-fix and refactor of [Space Invaders: Class of '18](https://github.com/DanielCHodgson/space-invaders-class-of-18). Same sprites, sounds and game, with the old lifecycle, collision and threading problems cleaned up.
+
+## Run it
+
+Requires **JDK 21 or newer**, with no Maven, Gradle or extra libraries.
+
+On Windows, from this folder:
+
+```powershell
+.\build.ps1 -Run
+```
+
+That compiles the source with Java lint warnings treated as errors, runs the regression checks and builds `dist/space-invaders-reloaded.jar`. To build and test without launching, use `.\build.ps1`.
+
+The JAR includes the graphics and audio and can run from any directory:
+
+```text
+java -jar path/to/space-invaders-reloaded.jar
+```
+
+In IntelliJ, open this folder, choose JDK 21 or newer and run `Launchers.BaseLauncher`.
+
+- **A / D** or **left / right arrows** to move.
+- **Space** to shoot; release to fire again.
+- Click **Play**, **Help**, **Retry** or **Quit** in the menus.
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the layers and extension points, and [REFACTOR.md](REFACTOR.md) for the fixes and checks. The asset sources were not documented in the old project; this repository does not claim ownership of those graphics or audio.
+
+## Credit
+
+Original game by **Daniel Hodgson**.
+
+## The original README
+
 # Space Invaders: Class of '18
 
 A little Space Invaders game I made while teaching myself Java back in 2018. The first game I ever made and the first app I ever "finished" (if you can call it that).
