@@ -9,6 +9,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Dependency analysis failed.' }
 # Each package may depend on itself plus these lower-level packages. App is the composition root.
 $allowed = @{
     config = @()
+    settings = @()
     control = @()
     event = @()
     entity = @('config')
@@ -22,7 +23,7 @@ $allowed = @{
     render = @('asset','config','entity','world','scene')
     input = @('control','scene','render')
     loop = @('config')
-    ui = @('config','render')
+    ui = @('config','render','settings')
     app = @('*')
 }
 $domain = @('config','control','event','entity','world','encounter','system','game','scene')

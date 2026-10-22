@@ -26,6 +26,28 @@ In IntelliJ, open this folder, choose JDK 21 or newer and run `Launchers.BaseLau
 - **Space** to shoot; release to fire again.
 - Click **Play**, **Help**, **Retry** or **Quit** in the menus.
 
+## Display settings
+
+The startup launcher offers windowed, borderless fullscreen and exclusive fullscreen modes, plus a window size and a launcher visibility checkbox. Borderless fullscreen is the default. Exclusive fullscreen falls back to borderless if the monitor does not support it. The game keeps its aspect ratio at every size.
+
+- **F10** opens settings during play (the game pauses while the dialog is open).
+- **F11** cycles display modes; **Alt+Enter** toggles fullscreen/windowed.
+- **Esc** returns to windowed mode.
+
+Preferences save automatically to `%LOCALAPPDATA%\SpaceInvadersReloaded\settings.ini`, including window resizing. You can edit it while the game is closed:
+
+```ini
+[display]
+mode=BORDERLESS
+window_width=960
+window_height=720
+
+[launcher]
+show_at_startup=true
+```
+
+`mode` accepts `WINDOWED`, `BORDERLESS` or `FULLSCREEN`. Invalid values use defaults. Delete the file to reset preferences; use F10 to re-enable the launcher if hidden.
+
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the layers and extension points, and [REFACTOR.md](REFACTOR.md) for the fixes and checks. The asset sources were not documented in the old project; this repository does not claim ownership of those graphics or audio.
 
 ## Credit

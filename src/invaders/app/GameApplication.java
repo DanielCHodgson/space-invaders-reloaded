@@ -11,9 +11,6 @@ import invaders.scene.menu.MenuLayout;
 import invaders.ui.GamePanel;
 import invaders.ui.GameWindow;
 
-import java.io.IOException;
-
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /** Application lifecycle and dependency wiring; no gameplay rules live here. */
@@ -28,7 +25,11 @@ public final class GameApplication implements AutoCloseable {
     private final GameLoop loop;
     private boolean closed;
 
-    private GameApplication(SpriteSource sprites, GameAudio audio) {
+    GameApplication(
+            SpriteSource sprites,
+            GameAudio audio,
+            invaders.settings.GameSettings settings,
+            invaders.settings.SettingsStore store) {
         if (!SwingUtilities.isEventDispatchThread())
             throw new IllegalStateException("Create UI on EDT");
         this.audio = audio;
@@ -38,45 +39,30 @@ public final class GameApplication implements AutoCloseable {
         panel = new GamePanel(GameAssembly.renderer(sprites, game, scenes, menus));
         input = new InputHandler(scenes, scenes, panel);
         input.attach();
-        window = new GameWindow(panel, this::close);
+        window =
+                new GameWindow(
+                        panel,
+                        this::close,
+                        settings,
+                        this::showSettings,
+                        value -> GameLauncher.save(store, value));
         loop = new SwingGameLoop(scenes::update, this::present);
     }
 
     public static void launch() {
-        GameAudio audio = null;
+        GameLauncher.launch();
+    }
+
+    private void showSettings() {
+        loop.close();
         try {
-            ResourceLoader resources = new ClasspathResourceLoader();
-            AssetCatalog catalog = AssetCatalog.load(resources);
-            SpriteSource sprites = new SpriteLibrary(resources, catalog);
-            audio = new AudioPlayer(new JavaSoundClipLoader(resources, catalog));
-            audio.preload();
-            GameAudio loadedAudio = audio;
-            SwingUtilities.invokeLater(
-                    () -> {
-                        try {
-                            GameApplication app = new GameApplication(sprites, loadedAudio);
-                            app.start();
-                        } catch (RuntimeException e) {
-                            loadedAudio.close();
-                            showError(e);
-                        }
-                    });
-        } catch (IOException | RuntimeException e) {
-            if (audio != null) audio.close();
-            SwingUtilities.invokeLater(() -> showError(e));
+            window.configure();
+        } finally {
+            if (!closed) loop.start();
         }
     }
 
-    private static void showError(Exception error) {
-        error.printStackTrace();
-        JOptionPane.showMessageDialog(
-                null,
-                error.getMessage(),
-                "Space Invaders could not start",
-                JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void start() {
+    void start() {
         window.open();
         present();
         loop.start();

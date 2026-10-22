@@ -21,6 +21,9 @@ This is the foundation for a space game with several modes. Space Invaders is th
 | `audio` | Domain-to-sound mapping, reusable clips and the Java Sound adapter. |
 | `ui` | Thin Swing panel/window adapters. |
 | `config` | Gameplay dimensions and tuning. |
+| `settings` | Validated display preferences and atomic, sectioned INI persistence. |
+
+The startup launcher loads preferences before loading assets. `GameWindow` owns native display transitions and reports preference changes for persistence. The UI can change size or display mode without changing simulation coordinates; the viewport handles scaling and pointer mapping. Settings dialogs pause the game loop.
 
 The build uses `jdeps` to enforce allowed package dependencies. Model, gameplay systems, encounter contracts and scenes cannot depend on AWT, Swing, sound devices, assets or renderers. Renderers cannot depend on the mutable session or world; they read snapshots through `GameView`.
 

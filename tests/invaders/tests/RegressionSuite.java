@@ -7,6 +7,7 @@ public final class RegressionSuite {
         GameplayTests.run();
         ResourceTests.run();
         AudioTests.run();
+        SettingsTests.run();
         EngineTests.run(args.length == 0 ? null : java.nio.file.Path.of(args[0]));
         System.out.println("All " + TestSupport.passed() + " regression checks passed.");
     }
